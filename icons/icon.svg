@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- 背景留白（透明） -->
+
+  <!-- 白紙陰影（A4 橫幅） -->
+  <rect x="14" y="29" width="104" height="74" rx="6" fill="rgba(0,0,0,0.12)"/>
+
+  <!-- 手掌（在紙張後方，並延伸至手指下方） -->
+  <g fill="#ffcc80" stroke="#d4956b" stroke-width="1.5">
+    <!-- 左手掌 -->
+    <rect x="4" y="64" width="20" height="24" rx="12"/>
+    <!-- 右手掌 -->
+    <rect x="104" y="64" width="20" height="24" rx="12"/>
+  </g>
+
+  <!-- 白紙主體（A4 橫幅，扣除左上角捲角） -->
+  <path d="M 20 27 L 40 27 L 12 55 L 12 95 Q 12 101 20 101 L 108 101 Q 116 101 116 95 L 116 33 Q 116 27 108 27 Z" fill="white" stroke="#e0e0e0" stroke-width="2"/>
+
+  <!-- 「台」字：正黑體、實心綠色、置於白紙正中 -->
+  <text x="64" y="64" font-family="'Microsoft JhengHei', 'Heiti TC', 'Noto Sans TC', sans-serif" font-size="50" font-weight="bold"
+        fill="#2e7d32" stroke="none"
+        text-anchor="middle" dominant-baseline="middle">台</text>
+
+  <!-- 左上角捲角陰影（捲起部份透明，陰影讓效果更明顯） -->
+  <path d="M 12 27 L 40 27 Q 24 29 12 55 Z" fill="rgba(0,0,0,0.18)" stroke="rgba(0,0,0,0.22)" stroke-width="1"/>
+
+  <!-- 露出的手指（遮住白紙陰影，稍微壓到紙張內側） -->
+  <g fill="#ffcc80" stroke="#d4956b" stroke-width="1.5">
+    <!-- 左手手指（四根） -->
+    <rect x="4" y="64" width="12" height="6" rx="3"/>
+    <rect x="4" y="70" width="12" height="6" rx="3"/>
+    <rect x="4" y="76" width="12" height="6" rx="3"/>
+    <rect x="4" y="82" width="12" height="6" rx="3"/>
+
+    <!-- 右手手指（四根） -->
+    <rect x="112" y="64" width="12" height="6" rx="3"/>
+    <rect x="112" y="70" width="12" height="6" rx="3"/>
+    <rect x="112" y="76" width="12" height="6" rx="3"/>
+    <rect x="112" y="82" width="12" height="6" rx="3"/>
+  </g>
+</svg>

@@ -1,0 +1,5 @@
+2026-06-22 19:59 | 移除錯誤條目 | dict_tw.js 第5787行：移除 "考核" → "考覈" 轉換。「考核」為台灣通用詞，無需轉換。備份：dict_tw.js.bak202606221959
+2026-06-22 20:26 | 批次移除錯誤條目 | dict_tw.js：共移除 68 筆。(1)核→覈類：核查、核查制度、核復（台灣公文通用詞）；(2)才→纔類：剛才、方才、才不、才對、才好、才有、才行、才怪、才是、才會等53筆（台灣現代副詞，不需轉成罕用字）。備份：dict_tw.js.bak202606222026
+2026-06-22 20:34 | 新增功能 v1.2.0 | 點擊圖示直接切換啟用/停用，不彈出視窗，不需重整頁面。新增 background.js（service worker），manifest 移除 default_popup 改用 onClicked，badge 顯示停用狀態（✕紅底），content.js 新增 runtime.onMessage 即時切換。備份：manifest.json/popup.js/popup.html/content.js.bak202606222034
+2026-06-22 20:51 | 清理檔案 | 移除已無用途的 popup.html 與 popup.js（開關邏輯已由 background.js 接管）
+2026-06-22 21:33 | 清理檔案 | 移除所有開發用檔案：*.bak* 備份、nochina-extension.zip、build/generate/crawl/package/convert/count/update/verify 等腳本、候選詞 txt、test_page.html、jest.config.js、package.json、package-lock.json
