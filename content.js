@@ -599,8 +599,9 @@
   }
 
   // ===== 即時切換（不重整頁面）=====
-  chrome.runtime.onMessage.addListener((msg) => {
-    if (msg.type !== 'TOGGLE_TRANSLATION') return;
+  chrome.runtime.onMessage.addListener((msg, sender) => {
+    if (sender.id !== chrome.runtime.id) return; // 僅接受來自本擴充功能自身的訊息
+    if (!msg || msg.type !== 'TOGGLE_TRANSLATION') return;
     if (msg.enabled) {
       // 啟用：初始化字典（若尚未）並掃描頁面
       if (!isDictionaryReady) {
