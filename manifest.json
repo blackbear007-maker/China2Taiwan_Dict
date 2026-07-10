@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "中台翻譯機",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "自動將網頁簡體中文轉為繁體中文，並將中國用語轉換為台灣用語。",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"
