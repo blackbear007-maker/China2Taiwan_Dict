@@ -74,6 +74,8 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
 
 ---
 
+> **v1.2.2 更新**：`matches` 已由 `<all_urls>` 縮小為 `http://*/*`、`https://*/*`，不再注入 `file://` 等協定，與隱私權政策第 5 節一致。以下為 1.2.1 當時的評估紀錄。
+
 ### 🟢 低風險 3：`<all_urls>` 全網域注入
 
 **檔案**: [manifest.json:22](manifest.json)

@@ -41,10 +41,14 @@
   let patternKeys = [];                 // 用於匹配後查找值
   let phraseTrie = null;                  // Trie 最長匹配自動機
   let isDictionaryReady = false;          // 字典初始化完成標記
+  let dictInitScheduled = false;          // 已排程建構字典（避免重複建構）
   let pendingNodes = [];                  // 等待字典就緒的節點佇列
+  let translationActive = false;          // 使用者目前是否啟用轉換（控制 observer 是否允許啟動）
 
   // ===== 初始化字典 =====
   function initDictionary() {
+    if (dictInitScheduled) return;
+    dictInitScheduled = true;
     // 方案D：使用 requestIdleCallback 非同步建構 Trie，避免阻塞首次渲染
     const build = () => {
       buildPattern({ ...CHINA_TO_TW });
@@ -348,7 +352,11 @@
       batch.forEach(node => processNode(node));
       
       if (index < nodes.length) {
-        requestIdleCallback ? requestIdleCallback(processBatch) : setTimeout(processBatch, 0);
+        if (typeof requestIdleCallback === 'function') {
+          requestIdleCallback(processBatch);
+        } else {
+          setTimeout(processBatch, 0);
+        }
       }
     }
     
@@ -421,6 +429,7 @@
   chrome.storage.local.get({ translationEnabled: true }, ({ translationEnabled }) => {
     if (!translationEnabled) return; // 停用狀態：不執行轉換也不啟動 observer
 
+    translationActive = true;
     initDictionary();
 
     // 初次執行
@@ -543,6 +552,7 @@
   let observer = null;
   
   function startMutationObserver() {
+    if (!translationActive) return; // 已停用：不得重新啟動（含 processMutations 收尾時的重啟）
     if (observer) return; // 已經啟動
 
     observer = new MutationObserver((mutations) => {
@@ -603,15 +613,20 @@
     if (sender.id !== chrome.runtime.id) return; // 僅接受來自本擴充功能自身的訊息
     if (!msg || msg.type !== 'TOGGLE_TRANSLATION') return;
     if (msg.enabled) {
-      // 啟用：初始化字典（若尚未）並掃描頁面
+      // 啟用：掃描整頁並啟動 observer。
+      // 若頁面是在停用狀態下載入，字典尚未建立且 pendingNodes 為空，
+      // 必須先把 body 排入佇列，字典建好後 processPendingNodes 才會轉換整頁。
+      translationActive = true;
       if (!isDictionaryReady) {
+        if (document.body) pendingNodes.push(document.body);
         initDictionary();
-      } else {
-        if (document.body) processNode(document.body);
-        startMutationObserver();
+      } else if (document.body) {
+        processNode(document.body);
       }
+      startMutationObserver();
     } else {
       // 停用：停止 observer（已轉換的文字維持現狀；若要還原需重整）
+      translationActive = false;
       stopMutationObserver();
     }
   });

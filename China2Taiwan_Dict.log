@@ -3,3 +3,5 @@
 2026-06-22 20:34 | 新增功能 v1.2.0 | 點擊圖示直接切換啟用/停用，不彈出視窗，不需重整頁面。新增 background.js（service worker），manifest 移除 default_popup 改用 onClicked，badge 顯示停用狀態（✕紅底），content.js 新增 runtime.onMessage 即時切換。備份：manifest.json/popup.js/popup.html/content.js.bak202606222034
 2026-06-22 20:51 | 清理檔案 | 移除已無用途的 popup.html 與 popup.js（開關邏輯已由 background.js 接管）
 2026-06-22 21:33 | 清理檔案 | 移除所有開發用檔案：*.bak* 備份、nochina-extension.zip、build/generate/crawl/package/convert/count/update/verify 等腳本、候選詞 txt、test_page.html、jest.config.js、package.json、package-lock.json
+2026-07-11 07:11 | 安全修正 v1.2.1 | manifest 移除未使用的 activeTab/scripting 權限；content.js onMessage 加上 sender.id 驗證；新增 SECURITY_AUDIT.md。
+2026-11-06 | 上架前修正 v1.2.2 | (1) content.js：修正停用狀態載入的頁面點擊啟用後不轉換的 bug（啟用時將 body 排入 pendingNodes 並啟動 observer）；新增 translationActive/dictInitScheduled 旗標，停用後 processMutations 不再重啟 observer、避免重複建構字典；requestIdleCallback 改用 typeof 檢查。(2) manifest：host 權限由 <all_urls> 縮小為 http/https，版本 1.2.2。(3) 重寫 PRIVACY_POLICY.md、README.md、SUBMISSION_CHECKLIST.md 與 manifest 同步，名稱統一為「中台翻譯機」。(4) 補回 package.json（Jest）、新增 tests/toggle.test.js、tests/setup.js 改為非同步 storage mock、新增 build_zip.py。
