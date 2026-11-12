@@ -4,3 +4,8 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.zip
+
+# Environment files
+.env
+.env.*
+!.env.example
